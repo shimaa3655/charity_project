@@ -1,0 +1,48 @@
+{% extends 'base_admin.html' %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header"style=" background-color: rgb(0, 200, 255);">
+    <h5 class="card-title">Update Featured Project</h5>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+     
+      <tbody>
+        {% for featured_project in featured_projects %}
+        <tr>
+          <td>{{ featured_project.project }}</td>
+          <td>{{ featured_project.project.title }}</td>
+          <td>{{ featured_project.is_featured }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_project" class="form-label">Project</label>
+        {{ form.project }}
+      </div>
+      <div class="mb-3">
+        <label for="id_is_featured" class="form-label">Is Featured</label>
+        {{ form.is_featured }}
+      </div>
+      {% if form.errors %}
+      <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> Please correct the following errors:
+        <ul>
+          {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+  </div>
+  
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base_admin.html' %}
+{% block button %}
+<div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'admin_panel:add_reply' %}" class="btn btn-success me-2">Add Reply</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <h2 class="text-center mb-4">Replies</h2>
+            <table class="table table-bordered">
+                <thead style="background-color: rgb(0, 200, 255);" class="text-light">
+                    <tr>
+                        <th>User</th>
+                        <th>Comment</th>
+                        <th>Text</th>
+                        <th>Created At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reply in replies %}
+                    <tr>
+                        <td>{{ reply.user }}</td>
+                        <td>{{ reply.comment }}</td>
+                        <td>{{ reply.text }}</td>
+                        <td>{{ reply.created_at }}</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="{% url 'admin_panel:update_reply' reply.id %}" class="btn btn-primary btn-sm me-2">Update</a>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="reply_id" value="{{ reply.id }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

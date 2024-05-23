@@ -1,0 +1,23 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container comments">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center mb-0">Update Comment</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'admin_panel:updatecomment' comment.id %}" method="post" class="w-75 m-auto">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-warning">Update Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

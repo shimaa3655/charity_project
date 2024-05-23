@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activate Your Account</title>
+</head>
+<body>
+    <p>Dear {{ user.get_username }},</p>
+    <p>Thank you for registering with us!</p>
+    <p>To activate your account, please follow the link below:</p>
+    <p><a href="{{ activation_link }}">{{ activation_link }}</a></p>
+    <p>If you have forgotten your username, it is: {{ user.get_username }}</p>
+    <p>If you need to reset your password, you can do so <a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">here</a>.</p>
+    <p>Best regards,<br> Your Site Team</p>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row my-5">
+    {% for table in tables %}
+    <div class="col-md-4">
+        <div class="card {% cycle 'bg-primary' 'bg-warning' 'bg-success' %}">
+            <div class="card-header text-white">
+                {{ table.0 }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Number of Objects</h5>
+                <p class="card-text text-white">{{ table.1 }}</p>
+            </div>
+            
+        </div>
+       <br>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

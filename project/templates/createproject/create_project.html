@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Create Project{% endblock %}
+
+
+{% block content %}
+<div class="shadow container-fluid mt-5 my-5">
+    <div class="createBackground row justify-content-center">
+        <div class="col-md-8">
+            <div class="card my-5">
+                <div class="headercreate card-header text-white text-center">Create Project</div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                              <h3>  {{ form.title.label_tag }}</h3>
+                                {{ form.title }}
+                                {% if form.title.errors %}
+                                    <p class="text-danger">
+                                        {{ form.title.errors|first }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                               <h3> {{ form.details.label_tag }}</h3>
+                                <br>
+                                {{ form.details }}
+                                {% if form.details.errors %}
+                                <p class="text-danger">
+                                        {{ form.details.errors|first }}
+                                   </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                              <h3> {{ form.category.label_tag }}</h3> 
+                                {{ form.category }}
+                                {% if form.category.errors %}
+                                <p class="text-danger">
+                                        {{ form.category.errors|first }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                              <h3>{{ form.total_target.label_tag }}</h3>  
+                                {{ form.total_target }}
+                                {% if form.total_target.errors %}
+                                <p class="text-danger">
+                                        {{ form.total_target.errors|first }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                             <h3>   <label for="start_time" class="form-label">Start Time</label></h3>
+                                <input type="date" id="start_time" name="start_time" class="form-control">
+                                {% if form.start_time.errors %}
+                                <p class="text-danger">
+                                        {{ form.start_time.errors|first }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                            <h3> <label for="end_time" class="form-label">End Time</label></h3>   
+                                <input type="date" id="end_time" name="end_time" class="form-control">
+                                {% if form.end_time.errors %}
+                                <p class="text-danger">
+                                        {{ form.end_time.errors|first }}
+                                   </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                             <h3> {{ form.country.label_tag }}</h3>
+                                {{ form.country }}
+                                {% if form.country.errors %}
+                                <p class="text-danger">
+                                        {{ form.country.errors|first }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                            <h3> <label for="tags" class="form-label">Tags (separated by commas)</label></h3>  
+                                <input type="text" id="tags" name="tags" class="form-control">
+                                {% if form.tags.errors %}
+                                <p class="text-danger">
+                                        {{ form.tags.errors|first }}
+                                   </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="image-inputs">
+                            <div class="col-md-12">
+                            <h3>  <label for="id_images" class="form-label">Project Images</label></h3> 
+                                <div class="input-group">
+                                    <input type="file" name="images" id="id_images" class="form-control">
+                                    <button class="btn btn-outline-primary" type="button" id="add-image">+</button>
+                                </div>
+                                {% if form.images.errors %}
+                                <p class="text-danger">
+                                        {{ form.images.errors|first }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="buttonCreate btn btn-warning">Create Project</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script src="{% static 'js/homeStyle.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div id="Home" class="mainhome jumbotron jumbotron-fluid bg-cover d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-light my-5" style="font-family: Arial, Helvetica, sans-serif; font-size: 3em;" >{{ category.name }}</h1>
+                <p style="font-style: italic; font-size: 1.5em; color: rgb(225, 99, 22);" > Together, we can create a brighter future through the generosity of giving</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5 my-5 category-container">
+    
+        <h1 class="topheader text-center col-12"><span><i class="fa-solid fa-hand-holding-heart"></i>Empowering Hope: Uniting for Change Through Our Charity Initiatives</span></h1>
+    
+
+    <div class="row row-cols-1 row-cols-md-5 g-4 my-5 justify-content-center">
+        {% for project in projects %}
+        <div class="col">
+            <div class="card nearbyCard ratecard ">
+                <div class="project-header">
+                    <i class="fa-regular fa-clock"></i>
+                    <br>
+                    <span class="remaining-time text-light">{{ project.remaining_time }}</span>
+                </div>
+                <img src="{{ project.pictures }}" class="card-img-top" alt="{{ project.title }}">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ project.title }}</h5>
+                    <p class="text-center">
+                        {% for _ in "xxxxx" %}
+                            <span><i class="fa-solid fa-star" style="color: #FFD43B;"></i></span>
+                        {% endfor %}
+                    </p>
+                    
+                    <div class="loader-container">
+                        <div class="loader loader-progress " data-progress="{{ project.average_rating }}">0%</div>               
+                    </div>
+                    <p class="card-text">{{ project.details }}</p>
+                    <p class="card-text">Raised: ${{ project.total_donations }} /${{ project.total_target }}</p>
+                    
+                    <div class="loader-container">
+                        <div class="loader loader-progress" data-progress="{{ project.progress_percentage }}">0%</div>               
+                    </div>
+
+                    <br>
+                    <a href="{% url 'project:view_project' project.id %}" class="btn btn-warning donatebtn text-light">Donate Now</a>
+                 </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block additional_js %}
+<script src="{% static 'js/homeStyle.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var images = [
+        "{% static 'image/slider-2.jpg' %}",
+        "{% static 'image/slider-3.jpg' %}",
+        "{% static 'image/slider-1.jpg' %}"
+    ]; 
+
+    var index = 0;
+    var mainhome = document.querySelector('.mainhome');
+
+    function changeBackground() {
+        mainhome.style.transition = "background-image 2s ease";
+        mainhome.style.backgroundImage = "url('" + images[index] + "')";
+        index = (index + 1) % images.length;
+    }
+
+    changeBackground();
+
+    setInterval(changeBackground, 6000); 
+});
+</script>
+{% endblock %}

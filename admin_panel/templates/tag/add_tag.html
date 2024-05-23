@@ -1,0 +1,35 @@
+{% extends 'base_admin.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center mb-2">Add Tag</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">Name:</label>
+                            <input type="text" name="name" class="form-control" id="id_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_projects" class="form-label">Projects:</label>
+                            <select name="projects" class="form-control select2" id="id_projects" multiple required>
+                                {% for project in form.fields.projects.queryset %}
+                                <option value="{{ project.id }}">{{ project.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Add Tag</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

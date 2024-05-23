@@ -1,0 +1,43 @@
+{% extends 'base_admin.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header" style=" background-color: rgb(0, 200, 255);">
+                    <h2 class="card-title text-center mb-0 text-white">Add Featured Project</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.project.label_tag }}
+                            {{ form.project }}
+                            {% if form.project.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.project.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.is_featured.label_tag }}
+                            {{ form.is_featured }}
+                            {% if form.is_featured.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.is_featured.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Featured Project</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

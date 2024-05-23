@@ -1,0 +1,44 @@
+{% extends 'base_admin.html' %}
+{% block button %}
+<div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'admin_panel:add_featured_project' %}" class="btn btn-success me-2">Add Featured Project</a>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <h2 class="mb-4 text-center">Featured Projects</h2>
+            <table class="table table-bordered table-striped">
+                <thead style="background-color: rgb(0, 200, 255);"class="text-light">
+                    <tr>
+                        <th>Project</th>
+                        <th>Name</th>
+                        <th>Is Featured</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for featured_project in featured_projects %}
+                    <tr>
+                        <td>{{ featured_project.project }}</td>
+                        <td>{{ featured_project.project.title }}</td>
+                        <td>{{ featured_project.is_featured }}</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="{% url 'admin_panel:update_featured_project' featured_project.project.pk %}" class="btn btn-primary btn-sm me-2">Update</a>
+
+                            <form method="post" action="{% url 'admin_panel:delete_featured_project' featured_project.project.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

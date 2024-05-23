@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div id="nearbyproject" class="container-fluid mt-5 my-5 ">
+    {% if projects %}
+        <div class="row  my-5">
+            <h1 class="topheader text-center col-12  my-5"><i class="fa-solid fa-house" style="color: #fb8423;"></i>Empower Change, Create Hope</span></h1>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-5 g-4 my-5 justify-content-center">
+            {% for project in projects %}
+                <div class="col">
+                    <div class="card nearbyCard ratecard">
+                        <div class="project-header">
+                            <i class="fa-regular fa-clock"></i>
+                            <br>
+                            <span class="remaining-time text-light">{{ project.remaining_time }}</span>
+                        </div>
+                        <img src="{{ project.pictures }}" class="card-img-top" alt="{{ nearby_project.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ project.title }}</h5>
+                            <p class="text-center">
+                                {% for _ in "xxxxx" %}
+                                    <span><i class="fa-solid fa-star" style="color: #FFD43B;"></i></span>
+                                {% endfor %}
+                            </p>
+                            
+                            <div class="loader-container">
+                                <div class="loader loader-progress " data-progress="{{ project.average_rating }}">0%</div>               
+                            </div>
+                            <p class="card-text">{{ project.details }}</p>
+                            <p class="card-text">Raised: ${{ project.total_donations }} / ${{ project.total_target }}</p>
+                            
+                            <div class="loader-container">
+                                <div class="loader loader-progress" data-progress="{{ project.progress_percentage }}">0%</div>               
+                            </div>
+
+                            <br>
+
+                            <a href="{% url 'project:view_project' project.id %}" class="btn btn-warning donatebtn text-light">Donate Now</a>
+               
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+    <div class="row justify-content-center">
+        <div class="col-md-4 my-5">
+            <div class="card">
+                <img src="{% static 'image/noresult.PNG' %}" class="card-img-top" alt="No Projects Found">
+                <div class="card-body">
+                    <h5 class="card-title text-center">No Projects Found</h5>
+                    <p class="card-text text-center">Sorry, no projects match your search criteria.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script src="{% static 'js/homeStyle.js' %}"></script>
+{% endblock %}

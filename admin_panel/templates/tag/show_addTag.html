@@ -1,0 +1,40 @@
+{% extends 'base_admin.html' %}
+
+{% block button %}
+<div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'admin_panel:add_tag' %}" class="btn btn-success me-2">Add Tag for Project</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center mb-4">Tags</h1>
+    <table class="table table-bordered table-striped">
+        <thead style="background-color: rgb(0, 200, 255);" class="text-light">
+            <tr>
+                <th scope="col">Project Name</th>
+                <th scope="col">Tags</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+            <tr>
+                <td>
+                    <ul class="list-unstyled">
+                        {% for project in tag.projects.all %}
+                        <li>{{ project.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ tag.name }}</td>
+                <td>
+                    <a href="{% url 'admin_panel:update_tag' tag.id %}" class="btn btn-primary">Update</a>
+                    <a href="{% url 'admin_panel:delete_tag' tag.id %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

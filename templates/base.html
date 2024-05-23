@@ -1,0 +1,135 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Charity{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    {% block additional_css %}{% endblock %}
+    
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="main-nav navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
+    <div class="container-fluid usercontainer">
+        <div class="d-flex align-items-center "> 
+        {% if user_profile.profile_picture %}
+        
+        <a href="{% url 'account:profile' %}">
+         <img src="{{ user_profile.profile_picture.url }}" class="user-image rounded-circle mr-2" alt="Profile Picture">
+        </a>
+        {% else %}
+        <a href="{% url 'account:profile' %}">
+        <img src="{% static 'image/icon-3.png' %}" class="user-image rounded-circle mr-2" alt="Default Image">
+    </a>
+      {% endif %}
+
+            <span class="username text-light"> {{ username }}</span>
+        </div>
+        <button class="navbar-toggler buttonnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="col-md-3 offset-1">
+            <!-- Search bar -->
+            <form class="form-inline search-form" method="GET" action="{% url 'project:search_projects' %}">
+                <input class="form-control search-input" type="text" name="query" placeholder="search. . . ." aria-label="Search">
+                <button class="btn text-light search-btn" type="submit">Search</button>
+            </form>
+            
+        </div>
+
+        <div class="collapse navbar-collapse justify-content-end"> 
+            <ul class="navbar-nav ulnav" >
+                <li class="nav-item linav">
+                    <a class="nav-link linknav" href="{% url 'project:home' %}#home">Home</a>
+                </li>
+                <li class="nav-item linav">
+                    <a class="nav-link linknav" href="{% url 'project:home' %}#top_project">Top Projects</a>
+                </li>
+                <li class="nav-item linav">
+                    <a class="nav-link linknav" href="{% url 'project:home' %}#nearbyproject">Nearby Projects</a>
+                </li>
+                <li class="nav-item linav">
+                    <a class="nav-link linknav" href="{% url 'account:logout' %}">logout</a>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <br>
+    <form class="form-inline search-form" method="GET" action="{% url 'project:search_projects' %}">
+        <input class="form-control search-input" type="text" name="query" placeholder="search. . . ." aria-label="Search">
+        <button class="btn text-light search-btn" type="submit">Search</button>
+    </form>
+    <hr>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</div>
+
+<div class="my-md-5">
+    {% block content %}
+    {% endblock %}
+</div>
+
+ <!-- About Section -->
+<div class="container-fluid my-5 about bg-dark" style="padding-top:5%;">
+    <div class="row my-5" >
+        <div class="col-md-4 col-5 text-center ">
+            <h5 class="text-light" style="font-size:1.8em;">Help & Information</h5>
+            <ul class="list-unstyled">
+                <li class="my-5"><a class="text-light" href="#">Reports</a></li>
+                <li class="my-5"><span><i class="fa-solid fa-shield-halved" style="color: #ec4d18;"></i><a class="text-light" href="#">Privacy Policy</a></span></li>
+                <li class="my-5"><a class="text-light" href="#">Terms & Conditions</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 col-3 text-center">
+            <h5 class="text-light" style="font-size:1.8em;">About Us</h5>
+            <ul class="list-unstyled">
+                <li class="my-5"><a class="text-light" href="#">Terms & Conditions</a></li>
+                <li class="my-5"><span><i class="fa-solid fa-phone" style="color: #ef5725;"></i><a class="text-light" href="#">Contact</a></span></li>
+                <li class="my-5"><a class="text-light" href="#">Home Page</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 col-3 text-center">
+            <h5 class="text-light" style="font-size:1.8em;">Categories</h5>
+            <ul class="list-unstyled">
+                <li class="my-5"><span><i class="fa-solid fa-shield-halved" style="color: #ec4d18;"></i><a class="text-light" href="#">Privacy Policy</a></span></li>
+                <li class="my-5"><span><i class="fa-solid fa-house" style="color: #ef4c06;"></i><a class="text-light" href="#">Home Page</a></span></li>
+                <li class="my-5"><a class="text-light" href="#">Terms & Conditions</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="text-light  my-5 ">
+    <div class="row text-light">
+        <div class="col-md-6">
+            &copy; 2024 Charitify. All rights reserved.
+        </div>
+        <div class="col-md-6 text-end">
+            Powered by charity
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/style.js' %}"></script>
+
+{% block additional_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'base_admin.html' %}
+
+{% block button %}
+<div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'admin_panel:add_report' %}" class="btn btn-success me-2">Add Report for Project</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center mb-4">Reports</h1>
+    <table class="table">
+        <thead style="background-color: rgb(0, 200, 255);"class="text-light">
+            <tr>
+                <th>User</th>
+                <th>Project</th>
+                <th>Comment</th>
+                <th>Reason</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.user }}</td>
+                <td>{{ report.project }}</td>
+                <td>{{ report.comment }}</td>
+                <td>{{ report.reason }}</td>
+                <td>
+                    <a href="{% url 'admin_panel:update_report' report.id %}" class="btn btn-primary">Update</a>
+                    <a href="{% url 'admin_panel:delete_report' report.id %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

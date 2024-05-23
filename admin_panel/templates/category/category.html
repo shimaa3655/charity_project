@@ -1,0 +1,40 @@
+{% extends 'base_admin.html' %}
+{% block button %}
+<div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'admin_panel:add_category' %}" class="btn btn-success me-2">Add Category</a>
+</div>
+
+{% endblock %}
+{% block content %}
+<div class="container-fluid d-flex justify-content-center align-items-center d-block" style="height: 100vh;">
+    <div class="row">
+        <div class="col-md-10">
+            <h2 class="mb-4 text-center">Category Management</h2>
+            <div style="height: 80vh; overflow-y: auto;"> 
+                <table class="table table-striped table-bordered"> 
+                    <thead class="text-white" style="background-color: rgb(0, 200, 255);">
+                        <tr>
+                            <th style="width: 100%;">Name</th> 
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                        <tr>
+                            <td style="width: 100%;">{{ category.name }}</td> 
+                            <td class="d-flex justify-content-between">
+                                <a href="{% url 'admin_panel:update_category' category.id %}" class="btn btn-primary btn-sm me-2">Update</a>
+                                <form action="{% url 'admin_panel:delete_category' category.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
